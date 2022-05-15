@@ -1,7 +1,7 @@
 'use strict';
 var data = [
   {
-    "code": null,    
+    "code": null,
     "name": "Economy car",
     "nodeExpanded": false,
     "attributes": {
@@ -9,23 +9,23 @@ var data = [
     },
     "children": [
       {
-        "code": null,        
-        "name": "Microcar",
-        "nodeSelected": true,
-        "attributes": {
-          "data-id": "11"
-        },
-        "children": []
-      },
-      {
-        "code": null,        
+        "code": null,
         "name": "Hatchbacks",
         "attributes": {
           "data-id": "12"
         },
         "children": [
           {
-            "code": null,            
+            "code": null,
+            "name": "Microcar",
+            "nodeSelected": true,
+            "attributes": {
+              "data-id": "11"
+            },
+            "children": []
+          },
+          {
+            "code": null,
             "name": "Ultracompact car",
             "nodeSelected": true,
             "attributes": {
@@ -34,7 +34,7 @@ var data = [
             "children": null
           },
           {
-            "code": null,            
+            "code": null,
             "name": "City car",
             "attributes": {
               "data-id": "122"
@@ -42,7 +42,7 @@ var data = [
             "children": null
           },
           {
-            "code": null,            
+            "code": null,
             "name": "Supermini/subcompact car",
             "attributes": {
               "data-id": "123"
@@ -50,18 +50,62 @@ var data = [
             "children": null
           }
         ]
-      }      
+      },
+
+      {
+        "code": null,
+        "name": "88Hatchbacks",
+        "attributes": {
+          "data-id": "8812"
+        },
+        "children": [
+          {
+            "code": null,
+            "name": "88Microcar",
+            "nodeSelected": true,
+            "attributes": {
+              "data-id": "8811"
+            },
+            "children": []
+          },
+          {
+            "code": null,
+            "name": "88Ultracompact car",
+            "nodeSelected": true,
+            "attributes": {
+              "data-id": "88121"
+            },
+            "children": null
+          },
+          {
+            "code": null,
+            "name": "88City car",
+            "attributes": {
+              "data-id": "88122"
+            },
+            "children": null
+          },
+          {
+            "code": null,
+            "name": "88Supermini/subcompact car",
+            "attributes": {
+              "data-id": "88123"
+            },
+            "children": null
+          }
+        ]
+      }
     ]
   },
   {
-    "code": null,    
+    "code": null,
     "name": "Family car",
     "attributes": {
       "data-id": "2"
     },
     "children": [
       {
-        "code": null,        
+        "code": null,
         "name": "Small family car/compact car",
         "nodeSelected": true,
         "attributes": {
@@ -70,7 +114,7 @@ var data = [
         "children": null
       },
       {
-        "code": null,        
+        "code": null,
         "name": "	Large family / mid-size",
         "attributes": {
           "data-id": "22"
@@ -80,14 +124,14 @@ var data = [
     ]
   },
   {
-    "code": null,    
+    "code": null,
     "name": "Saloons / sedans",
     "attributes": {
       "data-id": "3"
     },
     "children": [
       {
-        "code": null,        
+        "code": null,
         "name": "Large family / mid-size",
         "attributes": {
           "data-id": "31"
@@ -446,7 +490,7 @@ var data2 = [
             "children": null
           }
         ]
-      }      
+      }
     ]
   },
   {
@@ -514,205 +558,207 @@ var data2 = [
         "children": null
       }
     ]
-  }  
+  }
 ];
 
-$(document).ready(function() {
-  
-    $('#myButton').searchAreaControl({        
-        data: data,
-        mainButton: {
-            defaultText: 'Cars'
-        }
-    });
-      
-    var btn2 = $('#myButton2');
-    btn2.searchAreaControl({        
-        data: data,
-        mainButton: {
-            defaultText: 'Cars'
-        }
-    });
-    btn2.searchAreaControl('setSelectedNodes', false, [55]);
-        
-    $('#myButton3').searchAreaControl({        
-        data: data,
-        mainButton: {
-            defaultText: 'Cars',
-            showAllText: true
-        }
-    });
+$(document).ready(function () {
 
-    $('#myButton4').searchAreaControl({        
-        data: data,
-        mainButton: {
-            defaultText: 'Cars'
-        }
-    });
+  $('#myButton').searchAreaControl({
+    data: data,
+    mainButton: {
+      defaultText: 'Cars-Propagate'
+    },
+    propagateDown: true,
+    propagateUp: true
+  });
 
-    $('#myButton5').searchAreaControl({        
-        data: data,
-        mainButton: {
-            defaultText: 'Cars'
-        }
-    });
+  var btn2 = $('#myButton2');
+  btn2.searchAreaControl({
+    data: data,
+    mainButton: {
+      defaultText: 'Cars'
+    }
+  });
+  btn2.searchAreaControl('setSelectedNodes', false, [55]);
+
+  $('#myButton3').searchAreaControl({
+    data: data,
+    mainButton: {
+      defaultText: 'Cars',
+      showAllText: true
+    }
+  });
+
+  $('#myButton4').searchAreaControl({
+    data: data,
+    mainButton: {
+      defaultText: 'Cars'
+    }
+  });
+
+  $('#myButton5').searchAreaControl({
+    data: data,
+    mainButton: {
+      defaultText: 'Cars'
+    }
+  });
 
 
-    // TEST ====================================================== //
+  // TEST ====================================================== //
 
-    $('#btn1').searchAreaControl({        
-        data: data,
-        collapseNodes: true,        
-        //allNodesExpanded: false,
-        mainButton: {
-            defaultText: 'Cars',
-            className: 'btn btn-success'
-        },        
-        localeData: {
-          'en': {
-            'Search': 'Search custom'
-          }
+  $('#btn1').searchAreaControl({
+    data: data,
+    collapseNodes: true,
+    //allNodesExpanded: false,
+    mainButton: {
+      defaultText: 'Cars',
+      className: 'btn btn-success'
+    },
+    localeData: {
+      'en': {
+        'Search': 'Search custom'
+      }
+    },
+    searchBox: {
+      searchType: {
+        startsWith: {
+          text: 'Starts with',
+          selected: false
         },
-        searchBox: {          
-          searchType: {
-              startsWith: {
-                  text: 'Starts with',
-                  selected: false
-              },
-              existsIn: {
-                  text: 'Exists in',
-                  selected: false
-              },
-              regExp: {
-                  text: 'Regular expression',
-                  selected: true
-              }
-          }
-      },
-      popupButtons: {        
-        selectHighlighted: {
-          visible: true
+        existsIn: {
+          text: 'Exists in',
+          selected: false
+        },
+        regExp: {
+          text: 'Regular expression',
+          selected: true
         }
       }
-    });
-
-    $('#btn2').searchAreaControl({        
-        data: data2,
-        //selectedNodes: ['11','121'],      
-        allNodesSelected: true,  
-        mainButton: {
-            defaultText: 'Data 2'
-        }
-    });
-
-    $('#btn3').searchAreaControl({        
-      data: data2,      
-      mainButton: {
-          defaultText: 'Data 2'
+    },
+    popupButtons: {
+      selectHighlighted: {
+        visible: true
       }
+    }
+  });
+
+  $('#btn2').searchAreaControl({
+    data: data2,
+    //selectedNodes: ['11','121'],      
+    allNodesSelected: true,
+    mainButton: {
+      defaultText: 'Data 2'
+    }
+  });
+
+  $('#btn3').searchAreaControl({
+    data: data2,
+    mainButton: {
+      defaultText: 'Data 2'
+    }
   });
 });
 
-$(document).on('click', '#selectPony', function() {      
-    $('#myButton3').searchAreaControl('setSelectedNodes',false,[57]);
+$(document).on('click', '#selectPony', function () {
+  $('#myButton3').searchAreaControl('setSelectedNodes', false, [57]);
 });
 
-$(document).on('click', '#getSelectedByAttribute', function() {
-    var selected = $('#myButton4').searchAreaControl('getSelectedByAttribute','data-id');
-    var result = (selected.length > 0) ? '[' + selected.join(',') + ']' : '[]';
-    $('#getSelectedByAttribute_result').html(result);
+$(document).on('click', '#getSelectedByAttribute', function () {
+  var selected = $('#myButton4').searchAreaControl('getSelectedByAttribute', 'data-id');
+  var result = (selected.length > 0) ? '[' + selected.join(',') + ']' : '[]';
+  $('#getSelectedByAttribute_result').html(result);
 });
 
-$(document).on('click', '#setDisabled', function() {      
-    $('#myButton5').searchAreaControl('setDisabled',true);
+$(document).on('click', '#setDisabled', function () {
+  $('#myButton5').searchAreaControl('setDisabled', true);
 });
 
-$(document).on('click', '#setEnabled', function() {      
-    $('#myButton5').searchAreaControl('setDisabled',false);
+$(document).on('click', '#setEnabled', function () {
+  $('#myButton5').searchAreaControl('setDisabled', false);
 });
 
 // TEST ================================================================================ //
 
-$(document).on('click', '#updateDatasource_btn1', function() {
+$(document).on('click', '#updateDatasource_btn1', function () {
   $('#btn1').searchAreaControl('updateDatasource', data2);
 });
 
-$(document).on('click', '#getPopup', function() {
+$(document).on('click', '#getPopup', function () {
   var popup1 = $('#btn1').searchAreaControl('getPopup');
   console.log(popup1);
   //popup1.find('.sac-header-holder').css('border', '1px solid red');
 });
 
-$(document).on('click', '#setDisbaledNodes', function() {
-  $('#btn1').searchAreaControl('setDisabledNodes', [21,22], true);
+$(document).on('click', '#setDisbaledNodes', function () {
+  $('#btn1').searchAreaControl('setDisabledNodes', [21, 22], true);
 });
 
-$(document).on('click', '#enableAll', function() {
+$(document).on('click', '#enableAll', function () {
   $('#btn1').searchAreaControl('enableAllNodes');
 });
 
-$(document).on('click', '#destroy_btn1', function() {
+$(document).on('click', '#destroy_btn1', function () {
   $('#btn1').searchAreaControl('destroy');
 });
 
-$(document).on('click', '#getSelectedByAttribute_btn1', function() {
-    var selectedObj = $('#btn1').searchAreaControl('getSelectedNodes');
-    console.log(selectedObj);
-    var selected = $('#btn1').searchAreaControl('getSelectedByAttribute');
-    var result = (selected.length > 0) ? '[' + selected.join(',') + ']' : '[]';
-    alert(result);
+$(document).on('click', '#getSelectedByAttribute_btn1', function () {
+  var selectedObj = $('#btn1').searchAreaControl('getSelectedNodes');
+  console.log(selectedObj);
+  var selected = $('#btn1').searchAreaControl('getSelectedByAttribute');
+  var result = (selected.length > 0) ? '[' + selected.join(',') + ']' : '[]';
+  alert(result);
 });
 
-$(document).on('click', '#destroy_btn2', function() {
+$(document).on('click', '#destroy_btn2', function () {
   $('#btn2').searchAreaControl('destroy');
 });
 
-$(document).on('click', '#setSelectedNodes2', function() {
-  $('#btn2').searchAreaControl('setSelectedNodes', false, [31,32], 'data-id');
+$(document).on('click', '#setSelectedNodes2', function () {
+  $('#btn2').searchAreaControl('setSelectedNodes', false, [31, 32], 'data-id');
 });
 
-$(document).on('click', '#getSelectedByAttribute_btn2', function() {
-    var selected = $('#btn2').searchAreaControl('getSelectedByAttribute','data-id');
-    var result = (selected.length > 0) ? '[' + selected.join(',') + ']' : '[]';
-    alert(result);
+$(document).on('click', '#getSelectedByAttribute_btn2', function () {
+  var selected = $('#btn2').searchAreaControl('getSelectedByAttribute', 'data-id');
+  var result = (selected.length > 0) ? '[' + selected.join(',') + ']' : '[]';
+  alert(result);
 });
 
-$(document).on('searchareacontrol.beforeinit', function(e,data) {
+$(document).on('searchareacontrol.beforeinit', function (e, data) {
   console.log(data);
 });
 
-$(document).on('searchareacontrol.afterinit', function(e,data) {
+$(document).on('searchareacontrol.afterinit', function (e, data) {
   console.log(data);
 });
 
-$(document).on('searchareacontrol.popup.shown', function(e,data) {
+$(document).on('searchareacontrol.popup.shown', function (e, data) {
   console.log(data);
 });
 
-$(document).on('searchareacontrol.popup.hidden', function(e,data) {
+$(document).on('searchareacontrol.popup.hidden', function (e, data) {
   console.log(data);
 });
 
-$(document).on('searchareacontrol.button.click', function(e,data) {
+$(document).on('searchareacontrol.button.click', function (e, data) {
   console.log(data);
 });
 
-$(document).on('searchareacontrol.selectedNodesChanged', function(e,data) {
+$(document).on('searchareacontrol.selectedNodesChanged', function (e, data) {
   console.log(data);
 });
 
-$(document).on('searchareacontrol.popup.beforeshow', function(e,data) {  
+$(document).on('searchareacontrol.popup.beforeshow', function (e, data) {
   console.log('searchareacontrol.popup.beforeshow');
 });
 
-$(document).on('searchareacontrol.popup.beforehide', function(e,data) {  
+$(document).on('searchareacontrol.popup.beforehide', function (e, data) {
   console.log('searchareacontrol.popup.beforehide');
 });
 
-$(document).on('click', '#setLocale', function() {
+$(document).on('click', '#setLocale', function () {
   $('#btn2').searchAreaControl('setLocale', 'el');
 });
 
-$(document).on('click', '#btnModal', function() {
+$(document).on('click', '#btnModal', function () {
   $('#myModal').modal('show');
 });

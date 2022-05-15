@@ -97,6 +97,16 @@ Set to `false` if you want to be able to select only one item at time
 > - Type: `boolean`
 > - Default: `true`
 
+### propagateDown
+Set to `true` if you want to propagate selection to descendant nodes when multiSelect is true
+> - Type: `boolean`
+> - Default: `false`
+
+### propagateUp
+Set to `true` if you want to propagate selection to parent node when multiSelect is true
+> - Type: `boolean`
+> - Default: `false`
+
 ### collapseNodes
 Set to `true` if you want the user to be able to expand or collapse every node that has one or more children nodes
 > - Type: `boolean`

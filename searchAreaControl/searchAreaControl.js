@@ -498,40 +498,55 @@
             var popup = $('#' + this.popupID);
             if (popup && popup.length > 0) {
 
-                // Node
-                popup.find('.sac-ul')
-                    .not('.sac-ul-top')
-                    .children('li')
-                    .find('.sac-node-name')
-                    .on('click', function () {
-                        var thisNode = $(this);
-                        if (!thisNode.hasClass('sac-node-disabled')) {
-                            if ($that.opt.multiSelect === false) {
-                                popup.find('.sac-node-name').not(this).removeClass('sac-node-selected');
-                            }
-                            thisNode.toggleClass('sac-node-selected');
-                            $that._applySelection();
-                        }
-                    });
-
-                // Node parent
                 if (this.opt.multiSelect === true) {
-                    popup.find('.sac-ul.sac-ul-top')
+                    //Multiple node selection
+                    //popup.find('.sac-ul.sac-ul-top')
+                    popup.find('.sac-ul')
                         .children('li')
                         .children('.sac-node-name')
                         .on('click', function () {
-                            var that = $(this);
-                            var par = that.closest('li');
-                            var parChildren = par.find('.sac-node-name').not(that).not('.sac-node-disabled');
-                            var parSelectedChildren = parChildren.filter('.sac-node-selected');
-                            var parChildrenNum = parChildren.length;
-                            var parSelectedChildrenNum = parSelectedChildren.length;
-                            if (parChildrenNum === parSelectedChildrenNum) {
-                                parChildren.removeClass('sac-node-selected');
-                            } else {
-                                parChildren.addClass('sac-node-selected');
+                            //Node actions
+                            var thisNode = $(this);
+                            var nodeSelected = thisNode.hasClass('sac-node-selected');
+                            if (!thisNode.hasClass('sac-node-disabled')) {
+                                if ($that.opt.multiSelect === false) {
+                                    popup
+                                        .find('.sac-node-name')
+                                        .not(this)
+                                        .removeClass('sac-node-selected');
+                                }
+                                if (nodeSelected) {
+                                    thisNode.removeClass('sac-node-selected');
+                                } else {
+                                    thisNode.addClass('sac-node-selected');
+                                }
                             }
+
+                            if ($that.opt.propagateDown === true) {
+                                $that._propagateCheckDown($(this), nodeSelected);
+                            }
+
+                            if ($that.opt.propagateUp === true) {
+                                $that._propagateCheckUp($(this), popup);
+                            }
+
                             $that._applySelection();
+                        });
+                } else {
+                    // Silgle Node selection
+                    popup.find('.sac-ul')
+                        .not('.sac-ul-top')
+                        .children('li')
+                        .find('.sac-node-name')
+                        .on('click', function () {
+                            var thisNode = $(this);
+                            if (!thisNode.hasClass('sac-node-disabled')) {
+                                if ($that.opt.multiSelect === false) {
+                                    popup.find('.sac-node-name').not(this).removeClass('sac-node-selected');
+                                }
+                                thisNode.toggleClass('sac-node-selected');
+                                $that._applySelection();
+                            }
                         });
                 }
 
@@ -541,6 +556,69 @@
                         $(this).closest('li').toggleClass('sac-node-collapsed');
                     });
                 }
+            }
+        },
+
+        /**
+        * Propagate check mark to children
+        */
+        _propagateCheckDown: function (node, nodeSelected) {
+
+            var allChildren = node.closest('li')
+                .find('.sac-node-name')
+                .not(node);
+            //console.warn("Children:" + allChildren.length);
+            var activeChildren = allChildren.not('.sac-node-disabled');
+            //console.warn("Active children:" + activeChildren.length);
+
+            //Check/uncheck all children
+            if (activeChildren.length > 0) {
+                activeChildren.each(function (index) {
+                    if (nodeSelected)
+                        $(this).removeClass('sac-node-selected');
+                    else
+                        $(this).addClass('sac-node-selected');
+                });
+            }
+        },
+
+        /**
+        * Propagate check mark to parent
+        */
+        _propagateCheckUp: function (node, popup) {
+            var $that = this;
+            var isRootNode = false;
+            var parentUl = node.closest('ul.sac-ul'); //Parent UL
+            if (parentUl.hasClass('sac-ul-top')) {
+                isRootNode = true;
+            }
+
+            var parentNode = parentUl.closest('li')
+                .find('.sac-node-name')
+                .not(node)
+                .first();
+
+            var allSiblings = (isRootNode)
+                ? popup.find(".sac-ul-top").children('li').children('.sac-node-name') //.not(that)
+                : parentUl.children('li').children('.sac-node-name'); //.not(that);
+            //console.warn("Siblings:" + allSiblings.length);        
+            var activeSiblings = allSiblings.not('.sac-node-disabled');
+            //console.warn("Active siblings:" + activeSiblings.length);
+            var selectedSiblings = allSiblings.filter('.sac-node-selected');
+            //console.warn("Selected siblings:" + selectedSiblings.length);
+
+            var parentNodeDisabled = parentNode.hasClass('sac-node-disabled');
+            if (!parentNodeDisabled) {
+                //Check/uncheck parent 
+                if (activeSiblings.length === selectedSiblings.length) {
+                    parentNode.addClass('sac-node-selected');
+                } else {
+                    parentNode.removeClass('sac-node-selected');
+                }
+            }
+
+            if (!isRootNode) {
+                $that._propagateCheckUp(parentNode, popup);
             }
         },
 
@@ -1233,6 +1311,8 @@
         },
         data: [],
         multiSelect: true,
+        propagateUp: false,
+        propagateDown: false,
         collapseNodes: false,
         allNodesExpanded: true,
         columns: 2,
